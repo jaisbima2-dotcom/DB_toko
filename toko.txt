@@ -1,0 +1,60 @@
+ mysql> insert into pelanggan
+    -> (1,'andi'),
+    -> (2,'budi'),
+    -> (3,'sari');
+mysql> insert into pelanggan (id_pelanggan, nama) values
+    -> (1,'andi'),
+    -> (2,'budi'),
+    -> (3,'sari');
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> create table pesanan(
+    -> id_pesanan int primary key,
+    -> id_pelanggan int,
+    -> produk varchar(50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into pesanan (id_pesanan, id_pelanggan, produk) values
+    -> (101, 1, 'laptop'),
+    -> (102, 2, 'smartphone'),
+    -> (103, 1, 'headset');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select pelanggan.nama, pesanan.produk
+    -> from pelanggan
+    -> inner join pesanan on pelanggan.id_pelanggan = pesanan.id_pelanggan;
++------+------------+
+| nama | produk     |
++------+------------+
+| andi | laptop     |
+| budi | smartphone |
+| andi | headset    |
++------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select pelanggan.nama, pesanan.produk
+    -> from pelanggan
+    -> left join pesanan on pelanggan.id_pelanggan = pesanan.id_pelanggan;
++------+------------+
+| nama | produk     |
++------+------------+
+| andi | headset    |
+| andi | laptop     |
+| budi | smartphone |
+| sari | NULL       |
++------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select pelanggan.nama, pesanan.produk
+    -> from pelanggan
+    -> right join pesanan on pelanggan.id_pelanggan = pesanan.id_pelanggan;
++------+------------+
+| nama | produk     |
++------+------------+
+| andi | laptop     |
+| budi | smartphone |
+| andi | headset    |
++------+------------+
+3 rows in set (0.00 sec)
